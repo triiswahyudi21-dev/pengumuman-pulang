@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Pengumuman Pulang Sekolah - SMPN 3 Besuki</title>
+    <title>Sistem Pengumuman WA Wali Kelas - SMPN 3 Besuki</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
-        .container { background: #ffffff; width: 100%; max-width: 480px; border-radius: 20px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); overflow: hidden; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background: #0f172a; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; color: #334155; }
+        .container { background: #ffffff; width: 100%; max-width: 520px; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 25px rgba(0,0,0,0.3); }
         .header { background: linear-gradient(135deg, #059669 0%, #10b981 100%); padding: 25px 20px; text-align: center; color: white; }
-        .logo-container { width: 85px; height: 85px; background: #ffffff; border-radius: 50%; margin: 0 auto 12px; padding: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); display: flex; align-items: center; justify-content: center; }
-        .logo-container img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 50%; }
-        .header h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 4px; }
-        .badge-school { display: inline-block; background: rgba(255, 255, 255, 0.2); padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; letter-spacing: 1px; }
+        .logo-container { width: 80px; height: 80px; background: #ffffff; border-radius: 50%; margin: 0 auto 12px; padding: 5px; display: flex; align-items: center; justify-content: center; }
+        .logo-container img { max-width: 100%; max-height: 100%; border-radius: 50%; object-fit: contain; }
+        .header h1 { font-size: 20px; font-weight: 700; }
+        .badge-school { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px; font-size: 11px; margin-top: 6px; }
         .form-body { padding: 25px 20px; }
-        .form-group { margin-bottom: 20px; }
-        .form-label { display: block; font-size: 13px; font-weight: 700; color: #1e293b; margin-bottom: 8px; text-transform: uppercase; }
-        .input-control { width: 100%; padding: 12px 16px; font-size: 14px; border: 2px solid #e2e8f0; border-radius: 12px; background-color: #f8fafc; outline: none; }
-        .input-control:focus { border-color: #10b981; background-color: #ffffff; }
-        .time-picker-wrapper { display: flex; gap: 10px; align-items: center; }
-        .time-picker-wrapper select { flex: 1; text-align: center; }
-        .card-preview { background: #f0fdf4; border: 1px dashed #86efac; border-radius: 12px; padding: 15px; margin-top: 10px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 18px; }
+        .form-label { display: block; font-size: 12px; font-weight: 700; color: #1e293b; margin-bottom: 6px; text-transform: uppercase; }
+        .input-control { width: 100%; padding: 10px 14px; font-size: 14px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc; outline: none; }
+        .schedule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: #f1f5f9; padding: 12px; border-radius: 12px; }
+        .schedule-item { display: flex; flex-direction: column; gap: 4px; }
+        .schedule-item label { font-size: 11px; font-weight: 600; color: #475569; }
+        .card-preview { background: #f0fdf4; border: 1px dashed #86efac; border-radius: 12px; padding: 15px; margin: 15px 0; }
         .preview-text { font-size: 13px; color: #1e293b; white-space: pre-line; line-height: 1.5; background: #ffffff; padding: 12px; border-radius: 8px; border: 1px solid #dcfce7; }
-        .btn-submit { width: 100%; background: linear-gradient(135deg, #25d366 0%, #128c7e 100%); color: white; border: none; padding: 15px; font-size: 16px; font-weight: 700; border-radius: 12px; cursor: pointer; box-shadow: 0 10px 15px -3px rgba(37, 211, 102, 0.3); }
+        .status-box { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; padding: 12px; border-radius: 10px; font-size: 12px; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; }
+        .btn-notif { background: #2563eb; color: white; border: none; padding: 6px 12px; font-size: 11px; font-weight: 700; border-radius: 6px; cursor: pointer; }
+        .btn-submit { width: 100%; background: linear-gradient(135deg, #25d366 0%, #128c7e 100%); color: white; border: none; padding: 14px; font-size: 15px; font-weight: 700; border-radius: 12px; cursor: pointer; }
+        .btn-save { width: 100%; background: #0284c7; color: white; border: none; padding: 12px; font-size: 14px; font-weight: 700; border-radius: 10px; cursor: pointer; margin-bottom: 10px; }
         .hidden { display: none; }
     </style>
 </head>
@@ -34,108 +37,121 @@
             <img src="https://i.ibb.co.com/xKdsvGjP/Whats-App-Image-2026-07-23-at-19-47-58.jpg" alt="Logo SMPN 3 Besuki">
         </div>
         <h1>SMPN 3 BESUKI</h1>
-        <div class="badge-school">SISTEM PENGUMUMAN WALI KELAS</div>
+        <div class="badge-school">SISTEM PENGUMUMAN WALI KELAS VIA WA PRIVAT</div>
     </div>
 
     <div class="form-body">
         <div class="form-group">
             <label class="form-label">Nama Wali Kelas</label>
-            <input type="text" id="walikelas" class="input-control" placeholder="Masukkan nama wali kelas" value="" oninput="updatePreview()">
+            <input type="text" id="walikelas" class="input-control" value="TRI JOKO ISWAHYUDI, S.Pd" oninput="updatePreview()">
         </div>
 
         <div class="form-group">
             <label class="form-label">Kelas</label>
-            <input type="text" id="kelas" class="input-control" placeholder="Masukkan kelas (contoh: 7A)" value="" oninput="updatePreview()">
-        </div>
-
-        <!-- Input Tanggal Pengumuman -->
-        <div class="form-group">
-            <label class="form-label">Tanggal Pengumuman</label>
-            <input type="date" id="tanggal" class="input-control" onchange="updatePreview()">
+            <input type="text" id="kelas" class="input-control" value="7A" oninput="updatePreview()">
         </div>
 
         <div class="form-group">
-            <label class="form-label">Kondisi Pulang</label>
-            <select id="tipe" class="input-control" onchange="toggleKegiatan(); updatePreview();">
-                <option value="normal">Jam Pulang Normal</option>
-                <option value="awal">Pulang Lebih Awal</option>
-            </select>
-        </div>
-
-        <div class="form-group hidden" id="formKegiatan">
-            <label class="form-label">Nama Kegiatan</label>
-            <input type="text" id="kegiatan" class="input-control" placeholder="Masukkan nama kegiatan" value="" oninput="updatePreview()">
+            <label class="form-label">Nomor WhatsApp Privat Wali Kelas</label>
+            <input type="text" id="noHpWali" class="input-control" placeholder="Contoh: 6281234567890" value="6281234567890" oninput="updatePreview()">
+            <span style="font-size: 10px; color: #64748b; margin-top: 4px; display: block;">*Gunakan format 62 di awal (misal: 628xxx)</span>
         </div>
 
         <div class="form-group">
-            <label class="form-label">Jam Pulang</label>
-            <div class="time-picker-wrapper">
-                <select id="jamJam" class="input-control" onchange="updatePreview()">
-                    <option value="07">07</option>
-                    <option value="08">08</option>
-                    <option value="09">09</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12" selected>12</option>
-                    <option value="13">13</option>
-                </select>
-                <span style="font-weight: bold;">.</span>
-                <select id="jamMenit" class="input-control" onchange="updatePreview()">
-                    <option value="00" selected>00</option>
-                    <option value="05">05</option>
-                    <option value="10">10</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option>
-                    <option value="25">25</option>
-                    <option value="30">30</option>
-                    <option value="35">35</option>
-                    <option value="40">40</option>
-                    <option value="45">45</option>
-                </select>
-                <span style="font-weight: bold; color: #64748b;">WIB</span>
+            <label class="form-label">Link WhatsApp Group Wali Murid</label>
+            <input type="text" id="waGroup" class="input-control" placeholder="Contoh: https://chat.whatsapp.com/..." oninput="updatePreview()">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label">Jadwal Jam Pulang Rutin (Senin - Jumat)</label>
+            <div class="schedule-grid">
+                <div class="schedule-item">
+                    <label>Senin</label>
+                    <input type="time" id="jamSenin" class="input-control" value="13:59" onchange="updatePreview()">
+                </div>
+                <div class="schedule-item">
+                    <label>Selasa</label>
+                    <input type="time" id="jamSelasa" class="input-control" value="13:59" onchange="updatePreview()">
+                </div>
+                <div class="schedule-item">
+                    <label>Rabu</label>
+                    <input type="time" id="jamRabu" class="input-control" value="13:59" onchange="updatePreview()">
+                </div>
+                <div class="schedule-item">
+                    <label>Kamis</label>
+                    <input type="time" id="jamKamis" class="input-control" value="13:59" onchange="updatePreview()">
+                </div>
+                <div class="schedule-item" style="grid-column: span 2;">
+                    <label>Jum'at</label>
+                    <input type="time" id="jamJumat" class="input-control" value="11:30" onchange="updatePreview()">
+                </div>
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="form-label">Kondisi Pulang Khusus</label>
+            <select id="tipeKhusus" class="input-control" onchange="toggleKhusus(); updatePreview();">
+                <option value="normal">Mengikuti Jadwal Rutin</option>
+                <option value="awal">Pulang Lebih Awal / Ada Kegiatan Khusus</option>
+            </select>
+        </div>
+
+        <div class="form-group hidden" id="formKhusus">
+            <label class="form-label">Nama Kegiatan Khusus</label>
+            <input type="text" id="kegiatan" class="input-control" placeholder="Contoh: Rapat Guru / Rapat Komite" oninput="updatePreview()">
+            <label class="form-label" style="margin-top: 8px;">Jam Pulang Khusus</label>
+            <input type="time" id="jamKhusus" class="input-control" value="10:00" onchange="updatePreview()">
+        </div>
+
+        <div class="status-box" id="statusNotif">
+            <span>🔔 Status Notifikasi Layar: <b>Belum Aktif</b></span>
+            <button class="btn-notif" onclick="mintaIzinNotifikasi()">Aktifkan</button>
+        </div>
+
         <div class="card-preview">
-            <h4 style="margin-bottom:8px; color:#166534;">Pratinjau Pesan WA</h4>
+            <h4 style="color:#166534; font-size:12px; margin-bottom:8px;">Pratinjau Pesan Ke WA Wali Kelas</h4>
             <div class="preview-text" id="previewText"></div>
         </div>
 
-        <button class="btn-submit" onclick="kirimWA()">Kirim Pengumuman WA</button>
+        <button class="btn-save" onclick="simpanPengaturan()">💾 Simpan Setting Pengaturan</button>
+        <button class="btn-submit" onclick="kirimKeWaliKelas()">📲 Kirim Notifikasi Pengumuman Ke WA Wali Kelas</button>
     </div>
 </div>
 
 <script>
-    // Default Tanggal Hari Ini
-    document.getElementById("tanggal").valueAsDate = new Date();
+    var notifSudahTerkirimHariIni = false;
 
-    function formatTanggalIndo(dateString) {
-        if (!dateString) return "[Hari, Tanggal]";
-        var date = new Date(dateString);
+    function formatTanggalIndo(date) {
         var hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
         var bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
-        
         return hari[date.getDay()] + ", " + date.getDate() + " " + bulan[date.getMonth()] + " " + date.getFullYear();
     }
 
-    function toggleKegiatan() {
-        var tipe = document.getElementById("tipe").value;
-        document.getElementById("formKegiatan").classList.toggle("hidden", tipe !== "awal");
+    function getJamRutinHariIni() {
+        var today = new Date().getDay();
+        var map = {1: 'jamSenin', 2: 'jamSelasa', 3: 'jamRabu', 4: 'jamKamis', 5: 'jamJumat'};
+        var elementId = map[today];
+        return elementId ? document.getElementById(elementId).value.replace(':', '.') : "13.59";
     }
 
-    function generatePesan() {
-        var walikelas = document.getElementById("walikelas").value.trim() || "[Nama Wali Kelas]";
-        var kelas = document.getElementById("kelas").value.trim() || "[Kelas]";
-        var tanggalFormatted = formatTanggalIndo(document.getElementById("tanggal").value);
-        var tipe = document.getElementById("tipe").value;
-        var jam = document.getElementById("jamJam").value + "." + document.getElementById("jamMenit").value;
+    function toggleKhusus() {
+        var tipe = document.getElementById("tipeKhusus").value;
+        document.getElementById("formKhusus").classList.toggle("hidden", tipe !== "awal");
+    }
+
+    function generatePengumumanGroup() {
+        var walikelas = document.getElementById("walikelas").value.trim() || "TRI JOKO ISWAHYUDI, S.Pd";
+        var kelas = document.getElementById("kelas").value.trim() || "7A";
+        var tanggalFormatted = formatTanggalIndo(new Date());
+        var tipeKhusus = document.getElementById("tipeKhusus").value;
+        var jam = (tipeKhusus === "awal") ? document.getElementById("jamKhusus").value.replace(':', '.') : getJamRutinHariIni();
         var kegiatan = document.getElementById("kegiatan").value.trim() || "[Nama Kegiatan]";
 
-        if (tipe === "normal") {
+        if (tipeKhusus === "normal") {
             return "*PENGUMUMAN JAM PULANG SEKOLAH*\n" +
                    "*SMP NEGERI 3 BESUKI*\n\n" +
                    "Yth. Bapak/Ibu Orang Tua/Wali Murid Kelas " + kelas + "\n\n" +
-                   "Diberitahukan bahwa kegiatan belajar mengajar hari " + tanggalFormatted + " telah selesai pada pukul *" + jam + " WIB*.\n\n" +
+                   "Diberitahukan bahwa kegiatan belajar mengajar hari " + tanggalFormatted + " telah selesai pada pukul " + jam + " WIB.\n\n" +
                    "Mohon Bapak/Ibu dapat bersiap untuk penjemputan para siswa. Terima kasih atas kerja samanya.\n\n" +
                    "Hormat kami,\n" +
                    "Wali Kelas " + kelas + "\n" +
@@ -144,7 +160,7 @@
             return "*PENGUMUMAN PULANG LEBIH AWAL*\n" +
                    "*SMP NEGERI 3 BESUKI*\n\n" +
                    "Yth. Bapak/Ibu Orang Tua/Wali Murid Kelas " + kelas + "\n\n" +
-                   "Diberitahukan bahwa pada hari " + tanggalFormatted + ", siswa pulang lebih awal pada pukul *" + jam + " WIB* dikarenakan adanya *" + kegiatan + "*.\n\n" +
+                   "Diberitahukan bahwa pada hari " + tanggalFormatted + ", siswa pulang lebih awal pada pukul " + jam + " WIB dikarenakan adanya " + kegiatan + ".\n\n" +
                    "Mohon Bapak/Ibu dapat menyesuaikan jadwal penjemputan. Terima kasih atas perhatian dan kerja samanya.\n\n" +
                    "Hormat kami,\n" +
                    "Wali Kelas " + kelas + "\n" +
@@ -152,14 +168,104 @@
         }
     }
 
-    function updatePreview() {
-        document.getElementById("previewText").innerText = generatePesan();
+    function generateNotifikasiKeWali() {
+        var walikelas = document.getElementById("walikelas").value.trim() || "TRI JOKO ISWAHYUDI, S.Pd";
+        var kelas = document.getElementById("kelas").value.trim() || "7A";
+        var linkGroup = document.getElementById("waGroup").value.trim();
+        var pengumuman = generatePengumumanGroup();
+
+        var instruksi = "⏰ *PENGINGAT PENGUMUMAN PULANG SEKOLAH*\n" +
+                        "Halo Yth. Bpk/Ibu Wali Kelas " + kelas + " (" + walikelas + ").\n\n" +
+                        "Waktu jam pulang sekolah telah tiba. Silakan salin atau teruskan pengumuman di bawah ini ke Group WA Wali Murid Kelas " + kelas + ":\n\n" +
+                        "------------------------------------\n" +
+                        pengumuman + "\n" +
+                        "------------------------------------\n\n";
+
+        if (linkGroup.length > 0) {
+            instruksi += "🔗 *Link Akses Group WA Kelas:* \n" + linkGroup;
+        }
+
+        return instruksi;
     }
 
-    function kirimWA() {
-        var url = "https://wa.me/?text=" + encodeURIComponent(generatePesan());
+    function updatePreview() {
+        document.getElementById("previewText").innerText = generateNotifikasiKeWali();
+    }
+
+    function simpanPengaturan() {
+        alert("Pengaturan nomor WA Wali Kelas dan Link Group berhasil disimpan!");
+    }
+
+    function kirimKeWaliKelas() {
+        var noHp = document.getElementById("noHpWali").value.trim().replace(/[^0-9]/g, '');
+        var pesan = generateNotifikasiKeWali();
+
+        if (noHp.length === 0) {
+            alert("Harap masukkan nomor WhatsApp Wali Kelas terlebih dahulu!");
+            return;
+        }
+
+        var url = "https://wa.me/" + noHp + "?text=" + encodeURIComponent(pesan);
         window.open(url, '_blank');
     }
+
+    function mintaIzinNotifikasi() {
+        if ("Notification" in window) {
+            Notification.requestPermission().then(function (permission) {
+                if (permission === "granted") {
+                    document.getElementById("statusNotif").innerHTML = "<span>🔔 Status Notifikasi Layar: <b>Aktif & Siaga</b></span>";
+                    new Notification("SMPN 3 Besuki", {
+                        body: "Pengingat pengumuman otomatis aktif!",
+                        icon: "https://i.ibb.co.com/xKdsvGjP/Whats-App-Image-2026-07-23-at-19-47-58.jpg"
+                    });
+                }
+            });
+        }
+    }
+
+    function triggerNotifikasiLayar() {
+        if ("Notification" in window && Notification.permission === "granted") {
+            var notif = new Notification("⏰ Waktunya Pengumuman Pulang!", {
+                body: "Klik di sini untuk mengirimkan draf pengumuman ke WA Wali Kelas.",
+                icon: "https://i.ibb.co.com/xKdsvGjP/Whats-App-Image-2026-07-23-at-19-47-58.jpg",
+                requireInteraction: true
+            });
+
+            notif.onclick = function() {
+                window.focus();
+                kirimKeWaliKelas();
+            };
+        }
+    }
+
+    setInterval(function() {
+        var now = new Date();
+        var jamSekarang = String(now.getHours()).padStart(2, '0') + ":" + String(now.getMinutes()).padStart(2, '0');
+        var detikSekarang = now.getSeconds();
+
+        var tipeKhusus = document.getElementById("tipeKhusus").value;
+        var jamTarget = "";
+
+        if (tipeKhusus === "awal") {
+            jamTarget = document.getElementById("jamKhusus").value;
+        } else {
+            var today = now.getDay();
+            var map = {1: 'jamSenin', 2: 'jamSelasa', 3: 'jamRabu', 4: 'jamKamis', 5: 'jamJumat'};
+            if (map[today]) {
+                jamTarget = document.getElementById(map[today]).value;
+            }
+        }
+
+        if (jamTarget && jamSekarang === jamTarget && detikSekarang === 0 && !notifSudahTerkirimHariIni) {
+            notifSudahTerkirimHariIni = true;
+            triggerNotifikasiLayar();
+            kirimKeWaliKelas();
+        }
+
+        if (jamSekarang === "00:00") {
+            notifSudahTerkirimHariIni = false;
+        }
+    }, 1000);
 
     updatePreview();
 </script>
